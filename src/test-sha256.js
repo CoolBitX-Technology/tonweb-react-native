@@ -11,7 +11,7 @@ async function main() {
     const hash = await sha256(bytes);
 
     console.log('hash=', hash);
-    console.log('hash.length=', hash.length);
+    console.log('hash.constructor.name=', hash.constructor.name);
 
     const expectedHashString = '0x039058c6f2c0cb492c533b0a4d14ef77cc0f78abccced5287d84a1a2011cfb81';
     const hashString = arrayBufferToHex(hash);
@@ -19,6 +19,9 @@ async function main() {
 
     if (hashString !== expectedHashString) {
         throw new Error(`hashString is not correct actual=${hashString} expected=${expectedHashString}`);
+    }
+    if (hash.constructor.name !== 'ArrayBuffer') {
+        throw new Error(`hash is not ArrayBuffer actual=${hash.constructor.name} expected=ArrayBuffer`);
     }
     console.log('hashString is correct');
 }
