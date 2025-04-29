@@ -1,7 +1,11 @@
 const BN = require("bn.js");
 const nacl = require("tweetnacl");
 const ethunit = require("ethjs-unit");
-const crypto = require('crypto');
+const crypto = global.crypto;
+
+if (!crypto) {
+    throw new Error('tonweb src/utils/Utils.js: crypto is not available in this environment');
+}
 
 /**
  * @param bytes {Uint8Array}
